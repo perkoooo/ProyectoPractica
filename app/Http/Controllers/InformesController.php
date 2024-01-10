@@ -15,7 +15,7 @@ class InformesController extends Controller
         // Lógica para obtener datos
         $year = date('Y'); // Obtener el año actual por defecto
         $month = date('m'); // Obtener el mes actual por defecto
-
+        $utilidad = $this->calcularUtilidad($year, $month);
         // Lógica para obtener datos según el año y mes actual
         $Compras = Documento::whereYear('DOC_FC', $year)
             ->whereMonth('DOC_FC', $month)
@@ -26,11 +26,12 @@ class InformesController extends Controller
             ->whereMonth('DOC_FC', $month)
             ->where('DOC_TMV', 'Ventas')
             ->get();
-
+        $utilidad = $this->calcularUtilidad($year, $month);
         // Otros datos que quieras pasar a la vista
         $data = [
             'Compras' => $Compras,
             'Ventas' => $Ventas,
+            'utilidad' => $utilidad,
             // Otros datos que quieras pasar a la vista
         ];
 
@@ -60,5 +61,21 @@ class InformesController extends Controller
 
       
         return view('finanza.informes.index', compact('Compras', 'Ventas'));
+    }
+        public function calcularUtilidad($year, $month)
+    {
+        $comprasTotal = Documento::whereYear('DOC_FC', $year)
+            ->whereMonth('DOC_FC', $month)
+            ->where('DOC_TMV', 'Compras')
+            ->sum('DOC_NT');
+
+        $ventasTotal = Documento::whereYear('DOC_FC', $year)
+            ->whereMonth('DOC_FC', $month)
+            ->where('DOC_TMV', 'Ventas')
+            ->sum('DOC_NT');
+
+        $utilidad = $comprasTotal - $ventasTotal ;
+
+        return $utilidad;
     }
 }
