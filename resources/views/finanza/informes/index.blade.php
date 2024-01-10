@@ -112,10 +112,41 @@
             </tbody>
         </table>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Utilidad</h3>
+            </div>
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>  <?php
+                        $utilidad = 0;
+                        foreach($Compras as $compra) {
+                            $utilidad -= $compra->DOC_NT;
+                        }
+                        foreach($Ventas as $venta) {
+                            $utilidad += $venta->DOC_NT;
+                        }
+                        echo $utilidad;
+                    ?></td>
+                       
+                        <!-- Agrega más celdas según sea necesario -->
+                    </tr>
+              
+            </tbody>
+        </table>
+        </div>
 
         <!-- ... Otro contenido ... -->
 
         <button type="submit" class="btn btn-primary">Obtener Datos</button>
     </div>
-</form>
+    
+
 @endsection
