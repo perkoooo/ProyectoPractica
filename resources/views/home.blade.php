@@ -2,17 +2,16 @@
 
 @section('title', 'Dashboard')
 
-@section('plugins.Sweetalert2', true)
+
 
 @section('content_header')
-    <h1>La concha de tu madre carlitos</h1>
+    <h1>Bienvenidos</h1>
 @stop
 
 @section('content')
-    <p>Ola</p>
+    <p>al software de gestion de finanzas de Chile Digital</p>
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
-
